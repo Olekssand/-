@@ -1,0 +1,54 @@
+Invoker invoker = новий Invoker();
+	Receiver receiver = новий Receiver();
+	Команда ConcreteCommand = нова ConcreteCommand(одержувач);
+	invoker.SetCommand(команда);
+	invoker.Run();
+	
+
+	абстрактний клас Command
+	{
+	    public abstract void Execute();
+	    public abstract void Undo();
+	}
+	// конкретна команда
+	клас ConcreteCommand : Команда
+	{
+	    Приймач приймача;
+	    public ConcreteCommand(Receiver r)
+	    {
+	        приймач = r;
+	    }
+	    public override void Execute()
+	    {
+	        receiver.Operation();
+	    }
+	
+
+	    public override void Undo()
+	    {}
+	}
+	
+
+	// отримувач команди
+	клас Receiver
+	{
+	    public void Operation()
+	    {}
+	}
+	// ініціатор команди
+	клас Invoker
+	{
+	    Командна команда;
+	    public void SetCommand(Command c)
+	    {
+	        команда = c;
+	    }
+	    public void Run()
+	    {
+	        command.Execute();
+	    }
+	    public void Cancel()
+	    {
+	        command.Undo();
+	    }
+	}
