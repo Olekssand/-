@@ -1,0 +1,68 @@
+Клас RoundHole є
+	    конструктор RoundHole(radius) { ... }
+	
+
+	    Метод getRadius() є
+	        // Повернути радіус отвору.
+	
+
+	    метод fits(peg: RoundPeg) є
+	        повернути this.getRadius() >= peg.getRadius()
+	
+
+	клас RoundPeg є
+	    конструктор RoundPeg(radius) { ... }
+	
+
+	    Метод getRadius() є
+	        // Повернути радіус круглого кілочка.
+	
+
+	
+
+	// Застарілий несумісний клас: Квадратний Кілочок.
+	Клас SquarePeg є
+	    конструктор SquarePeg(width) { ... }
+	
+
+	    Метод getWidth() є
+	        // Повернути ширину квадратного кілочка.
+	
+
+	
+
+	// Адаптер дозволяє використовувати квадратні кілочки й круглі
+	// відкрити разом.
+	Клас SquarePegAdapter розширює RoundPeg
+	    приватний кілок поля: SquarePeg
+	
+
+	    конструктор SquarePegAdapter(peg: SquarePeg) є
+	        this.peg = кілочок
+	
+
+	    Метод getRadius() є
+	        // Обчислити половину діагоналі квадратного кілочка за
+	        // теоремою Піфагора.
+	        return peg.getWidth() * Math.sqrt(2) / 2
+	
+
+	
+
+	// Десь у клієнтському програмному коді.
+	отвір = новий RoundHole(5)
+	rpeg = новий RoundPeg(5)
+	hole.fits(rpeg) // ІСТИНА
+	
+
+	small_sqpeg = новий SquarePeg(5)
+	large_sqpeg = новий SquarePeg(10)
+	hole.fits(small_sqpeg) // Помилка компіляції, несумісні типи.
+	
+
+	small_sqpeg_adapter = новий SquarePegAdapter(small_sqpeg)
+	large_sqpeg_adapter = новий SquarePegAdapter(large_sqpeg)
+	hole.fits(small_sqpeg_adapter) // ІСТИНА
+	hole.fits(large_sqpeg_adapter) // FALSE
+Дайте відгук
+
