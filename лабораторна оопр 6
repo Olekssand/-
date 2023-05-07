@@ -1,0 +1,58 @@
+абстрактний клас Expression {
+	
+
+	    приватний статичний $keycount = 0;
+	    закритий $ключ;
+	
+
+	    абстрактна функція interpret(InterpreterContext $context);
+	
+
+	    функція getKey() {
+	        if (!isset($this->key)) {
+	            self::$keycount++;
+	            $this->key = self::$keycount;
+	        }
+	        повернути $this->key;
+	    }
+	
+
+	}
+	
+
+	class LitralExpr extends Expression {
+	
+
+	    приватне $значення;
+	
+
+	    функція __construct($value) {
+	        $this->value = $value;
+	    }
+	
+
+	    публічна функція interpret(InterpreterContext $context) {
+	        $context->replace($this, $this->value);
+	    }
+	
+
+	}
+	
+
+	class InterpreterContext {
+	
+
+	    приватний $exprstore = array();
+	
+
+	    функція replace(вираз $exp, $value) {
+	        $this->exprstore[$exp->getKey()] = $value;
+	    }
+	
+
+	    функція пошуку (вираз $exp) {
+	        повернути $this->exprstore[$exp->getKey()];
+	    }
+	
+
+	}
