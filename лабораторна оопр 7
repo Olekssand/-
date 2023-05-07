@@ -1,0 +1,61 @@
+Редактор класів є
+	    текст приватного поля, curX, curY, selectionWidth
+	
+
+	    Метод setText(text) є
+	        this.text = текст
+	
+
+	    Метод setCursor(x, y) є
+	        this.curX = x
+	        this.curY = y
+	
+
+	    Метод setSelectionWidth(width) є
+	        this.selectionWidth = ширина
+	
+
+	    метод createSnapshot(): Знімок є
+	        // Знімок — це незмінний об'єкт, тому творець передає до
+	        // йому стан свій через параметри конструктора.
+	        повернути новий знімок (це, текст, curX, curY, selectionWidth)
+	
+
+	// Знімок зберігає минулий стан редактора.
+	Клас Snapshot є
+	    редактор приватних полів: редактор
+	    текст приватного поля, curX, curY, selectionWidth
+	
+
+	    конструктор Snapshot(editor, text, curX, curY, selectionWidth) є
+	        this.editor = редактор
+	        this.text = текст
+	        this.curX = x
+	        this.curY = y
+	        this.selectionWidth = selectionWidth
+	
+
+	    // У потрібний момент знімку власника можна відновити стан
+	    // редактора.
+	    метод restore().
+	        editor.setText(текст)
+	        editor.setCursor(curX, curY)
+	        editor.setSelectionWidth(selectionWidth)
+	
+
+	// Опікуном може виступати клас команд (див. патерн Команда). У
+	// команда цього випадку зберігає знімок стану об'єкта-
+	// одержувача перед тим, як передати йому дію. А в разі
+	// скасування дії, команда поверне об'єкт до попереднього стану.
+	Клас Command є
+	    резервне копіювання приватного поля: знімок
+	
+
+	    метод makeBackup().
+	        резервне копіювання = editor.createSnapshot()
+	
+
+	    метод undo() є
+	        if (backup != null)
+	            backup.restore()
+	    // ...
