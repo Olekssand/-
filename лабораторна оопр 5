@@ -1,0 +1,66 @@
+Інтерфейс SocialNetwork є
+	    метод createFriendsIterator(profileId): ProfileIterator
+	    метод createCoworkersIterator(profileId): ProfileIterator
+	
+
+	
+
+	// Конкретна колекція знає, об'єкти яких ітераторів потребують
+	// створювати.
+	клас Facebook реалізує соціальну мережу
+	    // ... Основний код колекції ...
+	
+
+	    // Код отримання потрібного ітератора.
+	    Метод createFriendsIterator(profileId) є
+	        повернути новий FacebookIterator(this, profileId, "друзі")
+	    Метод createCoworkersIterator(profileId) є
+	        повернути новий FacebookIterator(this, profileId, "coworkers")
+	
+
+	
+
+	// Загальний інтерфейс ітераторів.
+	Інтерфейс ProfileIterator є
+	    метод getNext(): Профіль
+	    метод hasMore(): bool
+	
+
+	
+
+	// Конкретний ітератор.
+	Клас FacebookIterator реалізує ProfileIterator
+	    // Ітератору потрібні посилання на колекцію, яку він
+	    // обходить.
+	    приватне поле facebook: Facebook
+	    приватне поле profileId, тип: рядок
+	
+
+	    // Кожен ітератор обходить колекцію, незалежну від інших,
+	    // тому самостійно відслідковує поточну позицію обходу.
+	    приватне поле currentPosition
+	    кеш приватного поля: масив профілю
+	
+
+	    конструктор FacebookIterator(facebook, profileId, тип) є
+	        this.facebook = facebook
+	        this.profileId = profileId
+	        this.type = тип
+	
+
+	    приватний метод lazyInit().
+	        якщо (кеш == нуль)
+	            кеш = facebook.socialGraphRequest(profileId, тип)
+	
+
+	    // Всі конкретні ітератори реалізують методи загального
+	    // інтерфейсу по-своєму.
+	    метод getNext().
+	        якщо (hasMore())
+	            поточна позиція++
+	            повернути кеш[currentPosition]
+	
+
+	    Метод hasMore() є
+	        lazyInit()
+	        return currentPosition < cache.length
